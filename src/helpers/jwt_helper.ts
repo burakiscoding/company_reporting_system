@@ -1,13 +1,11 @@
 import jwt from "jsonwebtoken";
 
-const jwtSecret = "TOP_SECRET_JWT_KEY";
-
-export function generateJWT(id: String, username: String): String {
-  return jwt.sign({ id, username }, jwtSecret, { expiresIn: "7d" });
+export function generateJWT(id: String, username: String): String {  
+  return jwt.sign({ id, username }, process.env.JWT_SECRET!, { expiresIn: "7d" });
 }
 
 export function verifyJWT(token: String): TokenPayload {
-  const decoded = jwt.verify(token as string, jwtSecret) as TokenPayload;
+  const decoded = jwt.verify(token as string, process.env.JWT_SECRET!) as TokenPayload;
   return decoded;
 }
 
